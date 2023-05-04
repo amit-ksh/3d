@@ -82,7 +82,7 @@ scene.add(backLight);
 /* /////////////////////////////// */
 // TEXTURE
 const textureLoader = new THREE.TextureLoader()
-const matcapTexture = textureLoader.load('/assets/matcap/bluegreen-512.png')
+const matcapTexture = textureLoader.load('/matcap/bluegreen-512.png')
 /* /////////////////////////////// */
 
 /* /////////////////////////////// */
@@ -91,7 +91,7 @@ const matcapTexture = textureLoader.load('/assets/matcap/bluegreen-512.png')
 const fontLoader = new FontLoader();
 const font = fontLoader.load(
   // resource URL
-  "node_modules/three/examples/fonts/helvetiker_bold.typeface.json",
+  "/fonts/helvetiker_bold.typeface.json",
   (font) => {
     const textGeometry = new TextGeometry( "I'm Groot!", {
       font,
@@ -161,7 +161,7 @@ scene.add(pedestal);
 
 let groot = null;
 const loader = new GLTFLoader();
-loader.load("./assets/models/groot/scene.gltf", function (model) {
+loader.load("/models/groot/scene.gltf", function (model) {
   groot = model.scene;
   groot.position.set(0.002, 0.011, 0);
   gsap.fromTo(camera.position, {z: 20}, {z: 0.11, duration: 3, ease: 'circ'})
@@ -173,8 +173,8 @@ loader.load("./assets/models/groot/scene.gltf", function (model) {
 });
 
 /* /////////////////////////////// */
-
 // Animation Loop
+
 function animate() {
   requestAnimationFrame(animate);
   stars.rotation.x += 0.0005;
@@ -187,8 +187,3 @@ function animate() {
 }
 
 animate();
-
-
-window.addEventListener('click', () => {
-  gsap.fromTo(camera.position, {z: 20}, {z: 0.11, duration: 3, ease: 'circ'})
-})
