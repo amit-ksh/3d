@@ -4,7 +4,10 @@
   "description": "",
   "private": "true",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "start": "canvas-sketch --open",
+    "build": "canvas-sketch --build --inline" 
+  },
   "keywords": [
     "threejs",
     "creative-coding"
