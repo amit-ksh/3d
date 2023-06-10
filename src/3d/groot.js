@@ -1,10 +1,11 @@
-import "./style.css";
+// Ensure ThreeJS is in global scope for the 'examples/'
+global.THREE = require("three");
 
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { FontLoader } from 'three/addons/loaders/FontLoader.js';
-import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+// Include any additional ThreeJS examples below
+require("three/examples/js/controls/OrbitControls");
+require("three/examples/js/loaders/GLTFLoader");
+require("three/examples/js/loaders/FontLoader");
+require("three/examples/js/geometries/TextGeometry");
 
 import { gsap } from "gsap";
 
@@ -28,7 +29,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-camera.position.set(0, 0.09, 0.11);
+camera.position.set(0, 0.09, 20);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -59,7 +60,7 @@ function renderScene() {
 renderCalls.push(renderScene);
 
 /* OrbitControl */
-const controls = new OrbitControls(camera, renderer.domElement);
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 renderCalls.push(function () {
   controls.update();
@@ -82,18 +83,18 @@ scene.add(backLight);
 /* /////////////////////////////// */
 // TEXTURE
 const textureLoader = new THREE.TextureLoader()
-const matcapTexture = textureLoader.load('/matcap/bluegreen-512.png')
+const matcapTexture = textureLoader.load('/assets/matcap/bluegreen-512.png')
 /* /////////////////////////////// */
 
 /* /////////////////////////////// */
 // FONTS
 
-const fontLoader = new FontLoader();
+const fontLoader = new THREE.FontLoader();
 const font = fontLoader.load(
   // resource URL
-  "/fonts/helvetiker_bold.typeface.json",
+  "/assets/fonts/helvetiker_bold.typeface.json",
   (font) => {
-    const textGeometry = new TextGeometry( "I'm Groot!", {
+    const textGeometry = new THREE.TextGeometry( "I'm Groot!", {
       font,
       size: 0.06,
       height: 0.02,
@@ -160,8 +161,8 @@ scene.add(pedestal);
 // GROOT
 
 let groot = null;
-const loader = new GLTFLoader();
-loader.load("/models/groot/scene.gltf", function (model) {
+const loader = new THREE.GLTFLoader();
+loader.load("/assets/models/groot/scene.gltf", function (model) {
   groot = model.scene;
   groot.position.set(0.002, 0.011, 0);
   gsap.fromTo(camera.position, {z: 20}, {z: 0.11, duration: 3, ease: 'circ'})

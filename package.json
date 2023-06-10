@@ -1,0 +1,32 @@
+{
+  "name": "threejs-art",
+  "version": "1.0.0",
+  "description": "",
+  "private": "true",
+  "type": "module",
+  "scripts": {},
+  "keywords": [
+    "threejs",
+    "creative-coding"
+  ],
+  "dependencies": {
+    "@gltf-transform/core": "^3.4.0",
+    "@gltf-transform/extensions": "^3.4.0",
+    "@gltf-transform/functions": "^3.4.0",
+    "bezier-easing": "^2.1.0",
+    "canvas-sketch": "0.7.7",
+    "canvas-sketch-cli": "^1.11.21",
+    "canvas-sketch-util": "^1.10.0",
+    "convex-hull": "^1.0.3",
+    "eases": "^1.0.8",
+    "gl-matrix": "^3.4.3",
+    "glsl-face-normal": "^1.0.2",
+    "glsl-hsl2rgb": "^1.1.0",
+    "glsl-noise": "0.0.0",
+    "gsap": "^3.12.1",
+    "load-asset": "^1.2.0",
+    "nice-color-palettes": "^3.0.0",
+    "regl": "^2.1.0",
+    "three": "^0.147.0"
+  }
+}
