@@ -5,7 +5,8 @@
   "private": "true",
   "type": "module",
   "scripts": {
-    "start": "canvas-sketch --open",
+    "create": "canvas-sketch --new --open",
+    "start": "canvas-sketch --open --output ./out/",
     "build": "canvas-sketch --build --inline" 
   },
   "keywords": [
