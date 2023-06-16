@@ -6,14 +6,16 @@
   "type": "module",
   "scripts": {
     "create": "canvas-sketch --new --open",
-    "start": "canvas-sketch --open --output ./out/",
-    "build": "canvas-sketch --build --inline" 
+    "start": "canvas-sketch --output=out",
+    "build": "canvas-sketch --build --inline",
+    "start:mp4": "canvas-sketch --output=out --stream=mp4"
   },
   "keywords": [
     "threejs",
     "creative-coding"
   ],
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@gltf-transform/core": "^3.4.0",
     "@gltf-transform/extensions": "^3.4.0",
     "@gltf-transform/functions": "^3.4.0",
