@@ -6,7 +6,7 @@ bundle.js
 tmp/
 *.mp4
 *.gif
-src/2d/
-src/webgl/
+src/2d/*.js
+src/webgl/*.js
 src/slides/
 out/
