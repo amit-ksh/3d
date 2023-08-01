@@ -8,7 +8,7 @@
     "create": "canvas-sketch --new --open",
     "start": "canvas-sketch --output=out",
     "build": "canvas-sketch --build --inline",
-    "start:mp4": "canvas-sketch --output=out --stream=mp4"
+    "start:mp4": "npx canvas-sketch-cli --output=out --stream=mp4"
   },
   "keywords": [
     "threejs",
@@ -20,7 +20,7 @@
     "@gltf-transform/extensions": "^3.4.0",
     "@gltf-transform/functions": "^3.4.0",
     "bezier-easing": "^2.1.0",
-    "canvas-sketch": "0.7.7",
+    "canvas-sketch": "^0.7.7",
     "canvas-sketch-cli": "^1.11.21",
     "canvas-sketch-util": "^1.10.0",
     "convex-hull": "^1.0.3",

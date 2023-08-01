@@ -1,0 +1,37 @@
+.neon-container {
+  position: relative;
+  background: #000129;
+}
+
+.neon-text {
+  font-size: 4rem;
+  font-family: "Arial", sans-serif;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00e5,
+    0 0 70px #ff00e5, 0 0 80px #ff00e5, 0 0 100px #ff00e5, 0 0 150px #ff00e5;
+  animation: flicker 1.5s infinite;
+}
+
+@keyframes flicker {
+  0%,
+  19.999%,
+  22%,
+  62.999%,
+  64%,
+  64.999%,
+  70%,
+  100% {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00e5,
+      0 0 70px #ff00e5, 0 0 80px #ff00e5, 0 0 100px #ff00e5, 0 0 150px #ff00e5;
+  }
+  20%,
+  21.999%,
+  63%,
+  63.999%,
+  65%,
+  69.999% {
+    text-shadow: none;
+  }
+}
