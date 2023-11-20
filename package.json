@@ -33,6 +33,7 @@
     "load-asset": "^1.2.0",
     "nice-color-palettes": "^3.0.0",
     "regl": "^2.1.0",
-    "three": "^0.147.0"
+    "three": "^0.147.0",
+    "three-fatline": "^0.6.1"
   }
 }
