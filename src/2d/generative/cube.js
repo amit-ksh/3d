@@ -102,7 +102,7 @@ function addCube({
     resolution: new Vector2(res, res),
   });
   const backMaterial = new LineMaterial({
-    color: new THREE.Color(frontCubeColor).multiplyScalar(0.175),
+    color: new THREE.Color(frontCubeColor).multiplyScalar(0.3),
     linewidth: 1.5,
     resolution: new Vector2(res, res),
     dashed: true,
