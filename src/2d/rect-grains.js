@@ -27,14 +27,14 @@ const scale = 200;
 const smooth = 0.00008;
 canvasSketch(({ p5 }) => {
   //   Setup
-  p5.background(bg);
+  // p5.background(bg);
 
   p5.frameRate(90);
 
   p5.noiseDetail(1);
   p5.angleMode(p5.DEGREE);
 
-  let = num = 0;
+  let num = 0;
   for (let y = 0; y < p5.height; y += scale) {
     for (let x = 0; x < p5.width; x += scale) {
       let p = p5.createVector(x + p5.random(-10, 10), y + p5.random(-10, 10));
