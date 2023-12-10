@@ -86,7 +86,7 @@ class Effect {
     this.cols;
     this.flowFields = [];
     this.nParticles = 5000;
-    this.cellSize = 6;
+    this.cellSize = 10;
     this.curve = random.range(1, 4);
     this.zoom = random.range(0, 0.07);
   }
@@ -109,7 +109,6 @@ class Effect {
 
         let angle2 =
           (1 / Math.tan(x * this.zoom)) * this.curve +
-          1 / Math.tan(x * this.zoom * 0.1) -
           (1 / Math.tan(y * this.zoom)) * this.curve;
 
         let angle3 =
@@ -117,10 +116,14 @@ class Effect {
           random.noise1D(y * this.zoom) * this.curve;
 
         let angle4 =
-          random.gaussian(x, x / this.rows) * this.zoom * this.curve +
-          random.gaussian(y, y / this.cols) * this.zoom * this.curve;
+          random.gaussian(x, x / this.rows) *
+          this.zoom *
+          this.curve *
+          random.gaussian(y, y / this.cols) *
+          this.zoom *
+          this.curve;
 
-        this.flowFields.push(angle3);
+        this.flowFields.push(angle2);
       }
     }
   }
@@ -136,6 +139,8 @@ class Effect {
 
   render() {
     this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+    this.context.fillStyle = "black";
+    this.context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
     this.particles.forEach((particle) => {
       particle.update();
       particle.draw();

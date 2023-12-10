@@ -1,4 +1,5 @@
 const canvasSketch = require("canvas-sketch");
+const { random } = require("canvas-sketch-util");
 
 // Grab P5.js from npm
 const p5 = require("p5");
@@ -11,7 +12,7 @@ const settings = {
   // Use p5 in instance mode, passing the preloader
   // Can also just pass { p5 } setting if you don't need preloader
   p5: { p5, preload },
-  dimensions: [1280, 1280],
+  dimensions: [1080, 1080],
   // Turn on a render loop
   animate: true,
   playing: true,
@@ -24,10 +25,10 @@ let c = "black",
   lines = [];
 
 const scale = 200;
-const smooth = 0.00008;
+const smooth = random.range(0.00001, 0.0001);
 canvasSketch(({ p5 }) => {
   //   Setup
-  // p5.background(bg);
+  p5.background(bg);
 
   p5.frameRate(90);
 
@@ -58,7 +59,7 @@ canvasSketch(({ p5 }) => {
     }
   }
 
-  let = drawn = false;
+  let drawn = false;
   return ({ p5 }) => {
     if (drawn) return;
 
@@ -102,7 +103,7 @@ canvasSketch(({ p5 }) => {
     p5.angleMode(p5.RADIANS);
     p5.beginContour();
     for (let n = 0; n < p5.TWO_PI; n += p5.TWO_PI / 100) {
-      let r = 612;
+      let r = 512;
       let x = p5.sin(n) * r;
       let y = p5.cos(n) * r;
       p5.vertex(x + p5.width / 2, y + p5.height / 2);

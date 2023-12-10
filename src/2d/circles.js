@@ -1,4 +1,5 @@
 const canvasSketch = require("canvas-sketch");
+const { random } = require("canvas-sketch-util");
 
 // Grab P5.js from npm
 const p5 = require("p5");
@@ -11,7 +12,7 @@ const settings = {
   // Use p5 in instance mode, passing the preloader
   // Can also just pass { p5 } setting if you don't need preloader
   p5: { p5, preload },
-  dimensions: [600, 800],
+  dimensions: [1080, 1080],
   // Turn on a render loop
   animate: true,
   playing: true,
@@ -21,7 +22,8 @@ const borderWidth = 60;
 const padding = 40;
 
 const bgColor = "#0a1128";
-const color = "#ffc643";
+// const color = "#ffc643";
+const color = "white";
 const shapeArray = [];
 let kills = 0;
 canvasSketch(({ play, p5 }) => {
@@ -33,12 +35,13 @@ canvasSketch(({ play, p5 }) => {
       this.x = x;
       this.y = y;
       this.r = r;
-      this.fill = Math.random() < 0.25;
+      this.strokeWeight = random.range(1, 3);
+      this.fill = Math.random() < 0.2;
     }
 
     draw() {
       p5.stroke(color);
-      p5.strokeWeight(1);
+      p5.strokeWeight(this.strokeWeight);
       if (this.fill) {
         p5.fill(color);
       } else {
@@ -86,10 +89,11 @@ canvasSketch(({ play, p5 }) => {
 
   return ({ p5 }) => {
     // Draw
-    if (kills > 8000) {
+    if (kills > 1000) {
       console.log("stopped");
       return;
     }
+
     p5.background(bgColor);
     p5.noFill();
     // white border

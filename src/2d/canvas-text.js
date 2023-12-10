@@ -27,7 +27,7 @@ class Particle {
     this.angle = 0;
     this.distance = 0;
     this.friction = Math.random() * 0.9;
-    this.ease = Math.random() * 0.008;
+    this.ease = Math.random() * 0.05;
   }
 
   draw() {
@@ -158,6 +158,8 @@ class Effect {
 
   render() {
     this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+    this.context.fillStyle = "black";
+    this.context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
     this.particles.forEach((particle) => {
       particle.update();
       particle.draw();
@@ -202,8 +204,6 @@ function init() {
   canvas.style.height = window.innerHeight;
   document.body.style.overflow = "hidden";
 
-  console.log();
-
   const inputEl = document.createElement("input");
   const inputStyle = inputEl.style;
   inputEl.id = "textInput";
@@ -216,6 +216,7 @@ function init() {
   inputEl.style.opacity = 0;
   inputEl.style.zIndex = -1;
   inputEl.value = getText() || "Creative Coding!";
+
   document.body.prepend(inputEl);
 }
 
