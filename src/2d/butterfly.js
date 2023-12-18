@@ -74,13 +74,19 @@ canvasSketch(() => {
           0 + j * distance
         );
 
-        const r1 = map(sin(i * 6 + 90), -1, 1, r1Min, r1Max);
-        const r2 = map(sin(i * 3), -1, 1, r2Min, r2Max);
+        // If n is even -> 2n petal
+        // if n is odd -> n petal
+        const n1 = 6;
+        const n2 = 3;
+        const rotation = 90;
+        const r1 = map(sin(i * n1 + rotation), -1, 1, r1Min, r1Max);
+        const r2 = map(sin(i * n2), -1, 1, r2Min, r2Max);
         const r = r1 + r2;
         const x = r * cos(i);
         const y = r * sin(i);
 
         vertex(x, y);
+        // rect(x, y, 10, 10);
       }
       endShape(CLOSE);
     }
