@@ -12,8 +12,8 @@ require("three/examples/js/shaders/LuminosityHighPassShader");
 
 const canvasSketch = require("canvas-sketch");
 
-import vertexShader from './shaders/vertex.glsl';
-import fragmentShader from './shaders/fragment.glsl';
+import vertexShader from "./shaders/vertex.glsl";
+import fragmentShader from "./shaders/fragment.glsl";
 
 const settings = {
   // Make the loop animated
@@ -44,10 +44,10 @@ const sketch = ({ context }) => {
   const scene = new THREE.Scene();
 
   // LIGHTS
-  const dirLight = new THREE.DirectionalLight('#ffffff', 0.4);
+  const dirLight = new THREE.DirectionalLight("#ffffff", 0.4);
   dirLight.position.set(5, 5, 5);
 
-  const ambientLight = new THREE.AmbientLight('#ffffff', 0.5);
+  const ambientLight = new THREE.AmbientLight("#ffffff", 0.5);
   // scene.add(dirLight, ambientLight);
 
   // TORUS
@@ -61,7 +61,7 @@ const sketch = ({ context }) => {
       uTime: { value: 0 },
       uResolution: { value: new THREE.Vector2() },
       uDisplace: { value: 2 },
-      uSpread: { value: 1. },
+      uSpread: { value: 1 },
       uNoise: { value: 12 },
     },
   });
@@ -70,8 +70,8 @@ const sketch = ({ context }) => {
   scene.add(mesh);
   mesh.rotation.z = 5;
 
-  const composer = new THREE.EffectComposer(renderer)
-  composer.addPass(new THREE.RenderPass(scene, camera))
+  const composer = new THREE.EffectComposer(renderer);
+  composer.addPass(new THREE.RenderPass(scene, camera));
 
   const bloomPass = new THREE.UnrealBloomPass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
@@ -79,7 +79,7 @@ const sketch = ({ context }) => {
     0.0001,
     0.01
   );
-  composer.addPass(bloomPass)
+  composer.addPass(bloomPass);
 
   // draw each frame
   return {
@@ -92,7 +92,6 @@ const sketch = ({ context }) => {
     },
     // Update & render your scene here
     render({ time, deltaTime }) {
-
       // mesh.rotation.z += deltaTime / 1.5;
       material.uniforms.uTime.value += deltaTime / 1.5;
 

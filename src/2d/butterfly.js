@@ -24,8 +24,8 @@ const palatte = random.pick(palattes);
 
 canvasSketch(() => {
   // Setup
-  const nLines = 10;
-  const distance = 8;
+  const nLines = 50;
+  const distance = 20;
 
   angleMode(DEGREES);
   const colors = Array(nLines)
@@ -49,13 +49,13 @@ canvasSketch(() => {
           -1,
           1,
           30 + j * distance,
-          180 + j * distance
+          -90 + j * distance
         );
         const r1Max = map(
           sin(frameCount),
           -1,
           1,
-          180 + j * distance,
+          -90 + j * distance,
           0 + j * distance
         );
 
@@ -64,28 +64,29 @@ canvasSketch(() => {
           -1,
           1,
           30 + j * distance,
-          180 + j * distance
+          -90 + j * distance
         );
         const r2Max = map(
           sin(frameCount),
           -1,
           1,
-          180 + j * distance,
+          -90 + j * distance,
           0 + j * distance
         );
 
         // If n is even -> 2n petal
         // if n is odd -> n petal
-        const n1 = 6;
-        const n2 = 3;
+        const n1 = 60;
+        const n2 = 30;
         const rotation = 90;
-        const r1 = map(sin(i * n1 + rotation), -1, 1, r1Min, r1Max);
-        const r2 = map(sin(i * n2), -1, 1, r2Min, r2Max);
+        const r1 = map(cos(i + j * n1 + rotation), -1, 1, r1Min, r1Max);
+        const r2 = map(cos(i + (j * n2) / rotation), -1, 1, r2Min, r2Max);
         const r = r1 + r2;
-        const x = r * cos(i);
-        const y = r * sin(i);
+        const x = r * tan(i % 90 === 0 ? 0 : i);
+        const y = r * cos(i);
+        rotate(map(sin(i + j) + cos(i * j), -1, 1, 0, 360) * i + j);
 
-        vertex(x, y);
+        vertex(-x, y, 1);
         // rect(x, y, 10, 10);
       }
       endShape(CLOSE);

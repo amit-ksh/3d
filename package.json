@@ -25,6 +25,7 @@
     "canvas-sketch-cli": "^1.11.21",
     "canvas-sketch-util": "^1.10.0",
     "convex-hull": "^1.0.3",
+    "dat.gui": "^0.7.9",
     "eases": "^1.0.8",
     "gl": "^6.0.2",
     "gl-matrix": "^3.4.3",

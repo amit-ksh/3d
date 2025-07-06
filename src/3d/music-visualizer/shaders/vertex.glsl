@@ -71,15 +71,32 @@ vec3 nor(in vec2 p)
         1.));
     }
     
-    void main()
-    {
-        vec3 light=normalize(vec3(3.,2.,-1.));
-        float r=dot(nor(uv),light);
-        
-        float displacement=clamp(1.-r,0.,.2)+uAudioFrequency/2.;
-        vec3 newPosition=position+normal*displacement;
-        gl_Position=projectionMatrix*modelViewMatrix*vec4(newPosition,1);
-        
-        vPattern=r;
-        vUv=uv;
-    }
+    // ...existing code...
+void main()
+{
+    vec3 light=normalize(vec3(3.,2.,-1.));
+    float r=dot(nor(uv),light);
+    
+    // Create wavy pattern based on position and time
+    float waveX = sin(position.x * 8.0 + uTime * 2.0) * 0.1;
+    float waveY = cos(position.y * 6.0 + uTime * 1.5) * 0.08;
+    float waveZ = sin(position.z * 10.0 + uTime * 3.0) * 0.06;
+    
+    // Combine waves for complex pattern
+    float wavePattern = waveX + waveY + waveZ;
+    
+    // Add audio-reactive wave intensity
+    float audioWave = sin(length(position) * 5.0 + uTime * 4.0) * uAudioFrequency * 0.3;
+    
+    // Combine original displacement with wave pattern
+    float displacement = clamp(1.-r*r,0.,.2) + uAudioFrequency/2. + wavePattern + audioWave;
+    
+    // Apply displacement to create wavy surface
+    vec3 newPosition = position + normal * displacement;
+    
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1);
+    
+    // Use wave pattern for color variation
+    vPattern = r + wavePattern * 2.0;
+    vUv = uv;
+}

@@ -31,15 +31,16 @@ class Visualizer {
     // global audio source
     this.sound = new THREE.Audio(this.listener);
     this.loader = new THREE.AudioLoader();
+
+    // analyser
+    this.analyser = new THREE.AudioAnalyser(this.sound, 32);
+
     // loading the music
     this.loader.load(path, (buffer) => {
       this.sound.setBuffer(buffer);
       this.sound.setVolume(0.5);
       console.log("audio loaded");
     });
-
-    // analyser
-    this.analyser = new THREE.AudioAnalyser(this.sound, 32);
   }
 
   play() {
@@ -62,7 +63,7 @@ class Visualizer {
   }
 
   update() {
-    const freq = (this.getFrequency() - 100) / 50;
+    const freq = Math.max(this.getFrequency() - 100, 0) / 50;
     const freqUniform = this.mesh.material.uniforms[this.frequencyUniformName];
     gsap.to(freqUniform, {
       duration: 2,
@@ -86,12 +87,6 @@ const settings = {
 };
 
 const sketch = ({ context }) => {
-  // Add canvas styling setup
-  const canvas = context.canvas;
-  canvas.style.boxShadow = "0 0 20px ##FF00FFB3";
-  canvas.style.transition = "box-shadow 0.3s ease";
-
-  // Remove the static background color
   window.document.body.style.background = "#000129";
 
   // Create a renderer
@@ -101,7 +96,7 @@ const sketch = ({ context }) => {
 
   console.log(context.getParameter(context.VERSION));
 
-  // Remove static background color
+  // WebGL background color
   renderer.setClearColor("#000129", 1);
 
   // Setup a camera
@@ -120,7 +115,7 @@ const sketch = ({ context }) => {
   const ambientLight = new THREE.AmbientLight("#ffffff", 0.5);
   scene.add(dirLight, ambientLight);
 
-  const ROTATION_SPEED = 0.2;
+  const ROTATION_SPEED = 0.02;
   const MOTION_BLUR_AMOUNT = 0.725;
 
   const geometry = new THREE.TorusGeometry(1, 3, 16, 100);
@@ -186,19 +181,6 @@ const sketch = ({ context }) => {
   const softGlitch = new SoftGlitchPass();
   composer.addPass(softGlitch);
 
-  // Add this function before the return statement
-  const getColorFromFreq = (freq, seed) => {
-    return `hsl(${(seed * 360 + freq * 360) % 360}, 60%, 10%)`;
-  };
-
-  // Add this function before the return statement
-  const updateCanvasShadow = (freq) => {
-    const f = freq * 100;
-    const baseBlur = 40;
-    const shadowSize = baseBlur * f;
-    return `0 0 ${shadowSize}px #FF00FFB3`;
-  };
-
   // draw each frame
   return {
     // Handle resize events here
@@ -211,47 +193,12 @@ const sketch = ({ context }) => {
     // Update & render your scene here
     render({ time, deltaTime }) {
       material.uniforms.uTime.value = time;
-      const freq = Math.abs(visualizer.update());
+      const freq = visualizer.update();
       softGlitch.factor = freq > 0.6 ? 0.7 : 0.1;
 
-      const baseZ = 0.5; // Original camera position
-      const maxRange = 10; // Maximum distance from base
-      const displacement = freq * maxRange; // Scale frequency to movement range
-      // camera.position.z = baseZ + displacement;
-
-      gsap.to(camera.position, {
-        z: baseZ + displacement,
-        duration: 0.3,
-        ease: "Power2.easeOut",
-      });
-
-
-      // if (visualizer.sound.isPlaying) {
-      //   gsap.to(ico.rotation, {
-      //     x: ico.rotation.x + ROTATION_SPEED * (1.1 - freq) * 0.2,
-      //     y: ico.rotation.y + ROTATION_SPEED * (1.1 - freq) * 0.3,
-      //     z: ico.rotation.z + ROTATION_SPEED * (1.1 - freq) * 0.43,
-      //     ease: "Power2.easeOut",
-      //   });
-      // }
-
-      // Add shadow update
-      const newShadow = updateCanvasShadow(freq);
-      gsap.to(canvas.style, {
-        boxShadow: newShadow,
-        duration: 0.3,
-        ease: "Power2.easeOut",
-      });
-
-      // Add color updates
-      // const newColor = getColorFromFreq(freq, camera.position.z);
-      // gsap.to(window.document.body.style, {
-      //   background: newColor,
-      //   duration: 1,
-      //   ease: "Power2.easeOut",
-      // });
-      // renderer.setClearColor(newColor, 1);
-
+      const displacement = freq > 0.4 ? freq * 2 : -freq * 2;
+      const zPosition = Math.abs(displacement + camera.position.z);
+      camera.position.z = Math.max(Math.min(zPosition, 40), 4);
       controls.update();
       renderer.render(scene, camera);
     },
