@@ -191,9 +191,11 @@ const sketch = ({ context }) => {
     return `hsl(${(seed * 360 + freq * 360) % 360}, 60%, 10%)`;
   };
 
+  let lastFreq = 0;
+
   // Add this function before the return statement
   const updateCanvasShadow = (freq) => {
-    const f = freq * 100;
+    const f = Math.abs(lastFreq - freq) * 200;
     const baseBlur = 40;
     const shadowSize = baseBlur * f;
     return `0 0 ${shadowSize}px #FF00FFB3`;
@@ -221,10 +223,9 @@ const sketch = ({ context }) => {
 
       gsap.to(camera.position, {
         z: baseZ + displacement,
-        duration: 0.3,
+        duration: 0.1,
         ease: "Power2.easeOut",
       });
-
 
       // if (visualizer.sound.isPlaying) {
       //   gsap.to(ico.rotation, {
@@ -252,6 +253,7 @@ const sketch = ({ context }) => {
       // });
       // renderer.setClearColor(newColor, 1);
 
+      lastFreq = freq;
       controls.update();
       renderer.render(scene, camera);
     },
