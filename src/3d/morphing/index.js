@@ -58,6 +58,8 @@ const sketch = ({ context }) => {
       uTime: { value: 0 },
     },
   });
+  const ico = new THREE.Mesh(geometry, material);
+  ico.position.set(0, 0, 0);
   scene.add(ico);
 
   // draw each frame
